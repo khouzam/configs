@@ -1,0 +1,1 @@
+gilles ALL=(ALL) NOPASSWD: /usr/bin/apt, /usr/bin/apt-get
