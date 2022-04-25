@@ -12,6 +12,8 @@ ln -s -f $MY_PATH/config/.bashrc ~/.bashrc
 ln -s -f $MY_PATH/config/.bash_profile ~/.bash_profile
 ln -s -f $MY_PATH/config/.bash_aliases ~/.bash_aliases
 ln -s -f $MY_PATH/config/.powerlinerc ~/.powerlinerc
+ln -s -f $MY_PATH/../powerline ~/.config/powerline
+
 sudo ln -s -f $MY_PATH/config/sudoers /etc/sudoers.d/$USER
 
 echo installing Lastpass
@@ -34,9 +36,6 @@ echo installing powerline
 sudo apt install python3-pip
 pip3 install powerline-status
 pip3 install powerline-gitstatus
-
-mkdir -p ~/.config/powerline
-cp -r /powerline/config_files/ ~/.config/powerline/
 
 #Configure Git
 git config --global user.name "Gilles Khouzam"

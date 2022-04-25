@@ -7,10 +7,11 @@ if [[ -z "$MY_PATH" ]] ; then
   exit 1  # fail
 fi
 
-ln -s $MY_PATH/config/.inputrc ~/.inputrc
-ln -s $MY_PATH/config/.bashrc ~/.bashrc
-ln -s $MY_PATH/config/.bash_profile ~/.bash_profile
-ln -s $MY_PATH/config/.bash_aliases ~/.bash_aliases
+ln -s -f $MY_PATH/config/.inputrc ~/.inputrc
+ln -s -f $MY_PATH/config/.bashrc ~/.bashrc
+ln -s -f $MY_PATH/config/.bash_profile ~/.bash_profile
+ln -s -f $MY_PATH/config/.bash_aliases ~/.bash_aliases
+ln -s -f $MY_PATH/../powerline ~/.config/powerline
 
 echo installing Homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -50,9 +51,6 @@ echo powerline-daemon -q >> ~/.powerlinerc
 echo POWERLINE_BASH_CONTINUATION=1 >> ~/.powerlinerc
 echo POWERLINE_BASH_SELECT=1 >> ~/.powerlinerc
 echo source $POWERLINE_LOCATION/powerline/bindings/bash/powerline.sh >> ~/.powerlinerc
-
-mkdir -p ~/.config/powerline
-cp -r $POWERLINE_LOCATION/powerline/config_files/ ~/.config/powerline/
 
 # Configure Git
 git config --global user.name "Gilles Khouzam"
