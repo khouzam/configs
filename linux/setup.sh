@@ -15,6 +15,7 @@ ln -s -f $MY_PATH/config/.powerlinerc ~/.powerlinerc
 ln -s -f $MY_PATH/../powerline ~/.config/powerline
 
 sudo ln -s -f $MY_PATH/config/sudoers /etc/sudoers.d/$USER
+sudo chown root:root $MY_PATH/config/sudoers
 
 echo installing Lastpass
 sudo apt install lastpass-cli
