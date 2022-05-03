@@ -11,6 +11,7 @@ ln -s -f $MY_PATH/config/.inputrc ~/.inputrc
 ln -s -f $MY_PATH/config/.bashrc ~/.bashrc
 ln -s -f $MY_PATH/config/.bash_profile ~/.bash_profile
 ln -s -f $MY_PATH/config/.bash_aliases ~/.bash_aliases
+ln -s -f $MY_PATH/config/.powerlinerc ~/.powerlinerc
 ln -s -f $MY_PATH/../powerline ~/.config/powerline
 
 echo installing Homebrew
@@ -33,6 +34,7 @@ brew update
 # brew uninstall speedtest --force
 brew install speedtest --force
 
+# Powerline installation
 echo installing Powerline Fonts
 mkdir -p ~/projects/powerlinefonts
 cd ~/projects/powerlinefonts
@@ -40,17 +42,8 @@ git clone https://github.com/powerline/fonts.git --depth=1 fonts
 cd fonts
 ./install.sh
 
-echo installing powerline
 pip3 install powerline-status
 pip3 install powerline-gitstatus
-POWERLINE_LOCATION="$(pip3 show powerline-status | grep Location | awk '/Location/ { print $2 }')"
-
-# Configuring Powerline
-echo # Powerline > ~/.powerlinerc
-echo powerline-daemon -q >> ~/.powerlinerc
-echo POWERLINE_BASH_CONTINUATION=1 >> ~/.powerlinerc
-echo POWERLINE_BASH_SELECT=1 >> ~/.powerlinerc
-echo source $POWERLINE_LOCATION/powerline/bindings/bash/powerline.sh >> ~/.powerlinerc
 
 # Configure Git
 git config --global user.name "Gilles Khouzam"

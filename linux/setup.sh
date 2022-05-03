@@ -26,6 +26,7 @@ curl -s https://install.speedtest.net/app/cli/install.deb.sh | sudo bash
 sudo apt install speedtest
 
 
+# Powerline installation
 echo installing Powerline Fonts
 mkdir -p ~/projects/powerlinefonts
 cd ~/projects/powerlinefonts
