@@ -7,6 +7,10 @@ if [[ -z "$MY_PATH" ]] ; then
   exit 1  # fail
 fi
 
+if [[ ! -f ~/.config ]]; then
+    mkdir ~/.config
+fi
+
 ln -s -f $MY_PATH/config/.inputrc ~/.inputrc
 ln -s -f $MY_PATH/config/.bashrc ~/.bashrc
 ln -s -f $MY_PATH/config/.bash_profile ~/.bash_profile
@@ -17,14 +21,9 @@ ln -s -f $MY_PATH/../powerline ~/.config/powerline
 sudo ln -s -f $MY_PATH/config/sudoers /etc/sudoers.d/$USER
 sudo chown root:root $MY_PATH/config/sudoers
 
-echo installing Lastpass
-sudo apt install lastpass-cli
-
-echo installing Speedtest
-sudo apt install curl
-curl -s https://install.speedtest.net/app/cli/install.deb.sh | sudo bash
-sudo apt install speedtest
-
+# Update apt
+sudo apt update
+sudo apt upgrade -y
 
 # Powerline installation
 echo installing Powerline Fonts
@@ -35,9 +34,17 @@ cd fonts
 ./install.sh
 
 echo installing powerline
-sudo apt install python3-pip
-pip3 install powerline-status
-pip3 install powerline-gitstatus
+sudo apt install -y python3-pip
+sudo pip3 install powerline-status
+sudo pip3 install powerline-gitstatus
+
+echo installing Lastpass
+sudo apt install -y lastpass-cli
+
+echo installing Speedtest
+sudo apt install -y curl
+curl -s https://install.speedtest.net/app/cli/install.deb.sh | sudo bash
+sudo apt install -y speedtest
 
 #Configure Git
 git config --global user.name "Gilles Khouzam"
