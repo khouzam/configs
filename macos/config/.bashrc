@@ -98,4 +98,8 @@ if [ -f ~/.powerlinerc ]; then
     source ~/.powerlinerc
 fi
 
+if [ -f ~/.cargo/env ]; then
+    source ~/.cargo/env
+fi
+
 export BASH_SILENCE_DEPRECATION_WARNING=1

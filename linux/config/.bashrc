@@ -97,3 +97,7 @@ fi
 if [ -f ~/.powerlinerc ]; then
     source ~/.powerlinerc
 fi
+
+if [ -f ~/.cargo/env ]; then
+    source ~/.cargo/env
+fi
