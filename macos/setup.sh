@@ -7,6 +7,10 @@ if [[ -z "$MY_PATH" ]] ; then
   exit 1  # fail
 fi
 
+if [[ ! -d ~/.config ]] ; then
+  mkdir ~/.config
+fi
+
 ln -s -f $MY_PATH/config/.inputrc ~/.inputrc
 ln -s -f $MY_PATH/config/.bashrc ~/.bashrc
 ln -s -f $MY_PATH/config/.bash_profile ~/.bash_profile
