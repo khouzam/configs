@@ -47,8 +47,14 @@ curl -s https://install.speedtest.net/app/cli/install.deb.sh | sudo bash
 sudo apt install -y speedtest
 
 #Configure Git
+# Set the global user name (which might be changed)
 git config --global user.name "Gilles Khouzam"
 git config --global user.email gilles@khouzam.com
+
+# Set the repo user name (which might be different than the global one eventually)
+git config user.name "Gilles Khouzam"
+git config user.email gilles@khouzam.com
+
 git config --global fetch.prune true
 git config --global pull.rebase true
 git config --global diff.colorMoved zebra
