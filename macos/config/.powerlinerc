@@ -5,7 +5,7 @@ if [[ -f $POWERLINE_LOCATION/powerline/bindings/bash/powerline.sh ]]; then
     if ! which powerline-config >/dev/null ; then
         PATH=$PATH:$POWERLINE_LOCATION/../../../bin
     fi
-    powerline-daemon -q
+    # powerline-daemon -q
     POWERLINE_BASH_CONTINUATION=1
     POWERLINE_BASH_SELECT=1
     source $POWERLINE_LOCATION/powerline/bindings/bash/powerline.sh
