@@ -38,6 +38,9 @@ brew update
 # brew uninstall speedtest --force
 brew install speedtest --force
 
+# Install Meld diff tool
+brew install --cask meld
+
 # Powerline installation
 echo installing Powerline Fonts
 mkdir -p ~/projects/powerlinefonts
