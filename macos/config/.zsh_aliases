@@ -1,0 +1,3 @@
+if [[ -f ~/.zsh_aliases_local ]]; then
+    . ~/.zsh_aliases_local
+fi

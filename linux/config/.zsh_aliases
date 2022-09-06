@@ -1,0 +1,4 @@
+# enable color support of ls and also add handy aliases
+if [[ -f ~/.zsh_aliases_local ]]; then
+    . ~/.zsh_aliases_local
+fi

@@ -20,13 +20,6 @@ if [[ ! -d ~/.config ]] ; then
   mkdir ~/.config
 fi
 
-ln -s -f $MY_PATH/config/.inputrc ~/.inputrc
-ln -s -f $MY_PATH/config/.bashrc ~/.bashrc
-ln -s -f $MY_PATH/config/.bash_profile ~/.bash_profile
-ln -s -f $MY_PATH/config/.bash_aliases ~/.bash_aliases
-ln -s -f $MY_PATH/config/.powerlinerc ~/.powerlinerc
-ln -s -f $MY_PATH/../powerline ~/.config/powerline
-
 echo Checking and Installing Homebrew
 if [[ ! -x $(command -v brew) ]] ; then
     # Install Homebrew
@@ -39,6 +32,14 @@ brew_install iterm2 --cask
 brew_install visual-studio-code --cask
 brew_install lastpass --cask
 brew_install lastpass-cli
+brew_install meld --cask
+
+echo Installing ohMyZsh
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+
+# echo Installing powerlime2k
+brew_install romkatv/powerlevel10k/powerlevel10k
+brew_install zsh-autosuggestions
 
 echo Checking and Installing Speedtest
 if [[ ! -x $(command -v speedtest) ]]; then
@@ -51,8 +52,6 @@ if [[ ! -x $(command -v speedtest) ]]; then
 else
     echo Speedtest is installed
 fi
-
-brew_install --cask meld
 
 # Powerline fonts installation
 echo Installing Powerline Fonts
@@ -73,11 +72,25 @@ pip3 install powerline-gitstatus
 # Set the global user name (which might be changed)
 git config --global user.name "Gilles Khouzam"
 git config --global user.email gilles@khouzam.com
+git config --global fetch.prune true
+git config --global pull.rebase true
+git config --global diff.colorMoved zebra
 
 # Set the repo user name (which might be different than the global one eventually)
 git config user.name "Gilles Khouzam"
 git config user.email gilles@khouzam.com
 
-git config --global fetch.prune true
-git config --global pull.rebase true
-git config --global diff.colorMoved zebra
+# Link resource files
+ln -s -f $MY_PATH/config/.inputrc ~/.inputrc
+ln -s -f $MY_PATH/config/.bashrc ~/.bashrc
+ln -s -f $MY_PATH/config/.bash_profile ~/.bash_profile
+ln -s -f $MY_PATH/config/.bash_aliases ~/.bash_aliases
+
+# ZSH configs
+ln -s -f $MY_PATH/config/.zshenv ~/.zshenv
+ln -s -f $MY_PATH/config/.zshrc ~/.zshrc
+ln -s -f $MY_PATH/config/.zsh_aliases ~/.zsh_aliases
+ln -s -f $MY_PATH/config/.p10k.zsh ~/.p10k.zsh
+
+ln -s -f $MY_PATH/config/.powerlinerc ~/.powerlinerc
+ln -s -f $MY_PATH/../powerline ~/.config/powerline
