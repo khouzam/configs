@@ -25,28 +25,53 @@ sudo chown root:root $MY_PATH/config/sudoers
 sudo apt update
 sudo apt upgrade -y
 
-# Powerline installation
-echo installing Powerline Fonts
-mkdir -p ~/projects/powerlinefonts
-cd ~/projects/powerlinefonts
+echo Checking installation of mktemp
+if [[ ! -x $(command -v mktemp) ]]; then
+    echo Installing mktemp
+    sudo apt install -y coreutils
+fi
+
+# Powerline fonts installation
+echo Installing Powerline Fonts
+tmp_dir=$(mktemp -d -t powerlinefonts.XXXXX)
+pushd $tmp_dir
 git clone https://github.com/powerline/fonts.git --depth=1 fonts
 cd fonts
 ./install.sh
+popd
+rm -rf $tmp_dir
+unset tmp_dir
 
-echo installing powerline
-sudo apt install -y python3-pip
+
+echo Checking and installing pip3
+if [[ ! -x $(command -v pip3) ]]; then
+    echo Installing pip3
+    sudo apt install -y python3-pip
+fi
+
 sudo pip3 install powerline-status
 sudo pip3 install powerline-gitstatus
 
-echo installing Lastpass
-sudo apt install -y lastpass-cli
+echo Checking and Installing lastpass-cli
+if [[ ! -x $(command -v lpass) ]]; then
+    echi Installing lastpass-cli
+    sudo apt install -y lastpass-cli
+fi
 
-echo installing Speedtest
-sudo apt install -y curl
-curl -s https://install.speedtest.net/app/cli/install.deb.sh | sudo bash
-sudo apt install -y speedtest
+echo Checking and Installing Speedtest
+if [[ ! -x $(command -v speedtest) ]]; then
+    if [[ ! -x $(command -v curl) ]]; then
+        sudo apt install -y curl
+    fi
 
-#Configure Git
+    curl -s https://install.speedtest.net/app/cli/install.deb.sh | sudo bash
+    sudo apt update
+    sudo apt install -y speedtest
+else
+    echo Speedtest is installed
+fi
+
+# Configure Git
 # Set the global user name (which might be changed)
 git config --global user.name "Gilles Khouzam"
 git config --global user.email gilles@khouzam.com
