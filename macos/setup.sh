@@ -7,6 +7,15 @@ if [[ -z "$MY_PATH" ]] ; then
   exit 1  # fail
 fi
 
+brew_install() {
+    echo "Installing $1 using brew"
+    if brew list $1 &>/dev/null; then
+        echo "$* is already installed"
+    else
+        brew install $* && echo "$1 is installed"
+    fi
+}
+
 if [[ ! -d ~/.config ]] ; then
   mkdir ~/.config
 fi
@@ -21,42 +30,15 @@ ln -s -f $MY_PATH/../powerline ~/.config/powerline
 echo Checking and Installing Homebrew
 if [[ ! -x $(command -v brew) ]] ; then
     # Install Homebrew
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 else
     brew update
 fi
 
-echo Checking on iTerm2 installation
-if [[ ! -d /Applications/iTerm.app ]]; then
-    echo installing iTerm2
-    brew install --cask iterm2
-else
-    echo iTerm2 is installed
-fi
-
-echo Checking on VSCode installation
-if [[ ! -d /Applications/Visual\ Studio\ Code.app ]]; then
-    echo Installing VSCode
-    brew install --cask visual-studio-code
-else
-    echo VSCode is installed
-fi
-
-echo Checking on LastPass installation
-if [[ ! -d /Applications/LastPass.app ]]; then
-    echo installing Lastpass
-    brew install --cask lastpass
-else
-    echo LastPass is installed
-fi
-
-echo Checking on LastPass CLI installation
-if [[ ! -x  $(command -v lpass) ]]; then
-    echo Installing lastpass-cli
-    brew install lastpass-cli
-else
-    echo lastpass-cli is installed
-fi
+brew_install iterm2 --cask
+brew_install visual-studio-code --cask
+brew_install lastpass --cask
+brew_install lastpass-cli
 
 echo Checking and Installing Speedtest
 if [[ ! -x $(command -v speedtest) ]]; then
@@ -65,19 +47,12 @@ if [[ ! -x $(command -v speedtest) ]]; then
     brew update
     # Example how to remove conflicting or old versions using brew
     # brew uninstall speedtest --force
-    brew install speedtest --force
+    brew_install speedtest --force
 else
     echo Speedtest is installed
 fi
 
-
-echo Checking and Installing Meld
-if [[ ! -d /Applications/Meld.app ]]; then
-    echo Installing Meld Diffing Tool
-    brew install --cask meld
-else
-    echo Meld is already installed
-fi
+brew_install --cask meld
 
 # Powerline fonts installation
 echo Installing Powerline Fonts
