@@ -1,11 +1,13 @@
 #! /bin/bash
-MY_PATH=$(dirname "$0")            # relative
-MY_PATH=$(cd "$MY_PATH" && pwd)    # absolutized and normalized
-if [[ -z "$MY_PATH" ]] ; then
+SCRIPT_PATH=$(dirname "$0")             # relative
+SCRIPT_PATH=$(cd "$SCRIPT_PATH" && pwd)
+if [[ -z "$SCRIPT_PATH" ]] ; then
   # error; for some reason, the path is not accessible
   # to the script (e.g. permissions re-evaled after suid)
   exit 1  # fail
 fi
+
+pushd $SCRIPT_PATH
 
 is_installed() {
     if [[ $(dpkg-query -W -f='${Status}' $1 2>/dev/null | grep -c "ok installed") -eq 0 ]]; then
@@ -28,8 +30,8 @@ if [[ ! -f ~/.config ]]; then
     mkdir ~/.config
 fi
 
-sudo ln -s -f $MY_PATH/config/sudoers /etc/sudoers.d/$USER
-sudo chown root:root $MY_PATH/config/sudoers
+sudo ln -s -f $SCRIPT_PATH/config/sudoers /etc/sudoers.d/$USER
+sudo chown root:root $SCRIPT_PATH/config/sudoers
 
 # Update apt
 sudo apt update
@@ -70,29 +72,12 @@ popd
 rm -rf $tmp_dir
 unset tmp_dir
 
-# Configure Git
-# Set the global user name (which might be changed)
-git config --global user.name "Gilles Khouzam"
-git config --global user.email gilles@khouzam.com
-git config --global fetch.prune true
-git config --global pull.rebase true
-git config --global diff.colorMoved zebra
+if [[ -f $SCRIPT_PATH/../common/scripts/linkconfigs.sh ]]
+    . $SCRIPT_PATH/../common/scripts/linkconfigs.sh
+fi
 
-# Set the repo user name (which might be different than the global one eventually)
-git config user.name "Gilles Khouzam"
-git config user.email gilles@khouzam.com
+if [[ -f $SCRIPT_PATH/../common/scripts/setgit.sh ]]
+    . $SCRIPT_PATH/../common/scripts/setgit.sh
+fi
 
-# Link resource files
-ln -s -f $MY_PATH/config/.inputrc ~/.inputrc
-ln -s -f $MY_PATH/config/.bashrc ~/.bashrc
-ln -s -f $MY_PATH/config/.bash_profile ~/.bash_profile
-ln -s -f $MY_PATH/config/.bash_aliases ~/.bash_aliases
-
-# ZSH configs
-ln -s -f $MY_PATH/config/.zshenv ~/.zshenv
-ln -s -f $MY_PATH/config/.zshrc ~/.zshrc
-ln -s -f $MY_PATH/config/.zsh_aliases ~/.zsh_aliases
-ln -s -f $MY_PATH/config/.p10k.zsh ~/.p10k.zsh
-
-ln -s -f $MY_PATH/config/.powerlinerc ~/.powerlinerc
-ln -s -f $MY_PATH/../powerline ~/.config/powerline
+popd

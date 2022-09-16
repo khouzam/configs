@@ -11,3 +11,9 @@ set show-all-if-unmodified on
 set visible-stats on
 set colored-completion-prefix on
 set enable-bracketed-paste on
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+        # Mac OSX
+	set blink-matching-parent on
+fi
+
