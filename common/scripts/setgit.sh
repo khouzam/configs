@@ -19,6 +19,8 @@ git config --global user.email gilles@khouzam.com
 git config --global fetch.prune true
 git config --global pull.rebase true
 git config --global diff.colorMoved zebra
+git config --global core.editor "code --wait"
+
 
 # Set the repo user name (which might be different than the global one eventually)
 git config user.name "Gilles Khouzam"
