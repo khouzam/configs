@@ -30,6 +30,8 @@ else
     brew update
 fi
 
+brew_install git-gui
+brew_install sourcetree --cask
 brew_install iterm2 --cask
 brew_install visual-studio-code --cask
 brew_install lastpass --cask
