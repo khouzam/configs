@@ -83,6 +83,7 @@ pip3 install powerline-gitstatus
 # Run the config scripts
 run_script $SCRIPT_PATH/common/scripts/linkconfigs.sh
 run_script $SCRIPT_PATH/common/scripts/setgit.sh
+run_script $SCRIPT_PATH/macos/scripts/setgitdiff.sh
 run_script $SCRIPT_PATH/macos/scripts/sudotouchid.sh
 run_script $SCRIPT_PATH/macos/scripts/setupiTerm.sh
 
