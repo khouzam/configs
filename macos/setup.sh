@@ -46,6 +46,7 @@ brew_install lastpass-cli
 brew_install meld --cask
 brew_install monitorcontrol --cask
 brew_install android-platform-tools --cask
+brew_install flycut --cask
 
 echo Installing ohMyZsh
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
