@@ -125,3 +125,6 @@ fi
 if [[ -f ~/.zshrc_local ]]; then
   . ~/.zshrc_local
 fi
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
