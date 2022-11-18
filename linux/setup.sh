@@ -1,10 +1,11 @@
 #! /bin/bash
-SCRIPT_PATH=$(dirname "$0")             # relative
+
+SCRIPT_PATH=$(dirname "$0") # relative
 SCRIPT_PATH=$(cd "$SCRIPT_PATH" && pwd)
-if [[ -z "$SCRIPT_PATH" ]] ; then
-  # error; for some reason, the path is not accessible
-  # to the script (e.g. permissions re-evaled after suid)
-  exit 1  # fail
+if [[ -z "$SCRIPT_PATH" ]]; then
+    # error; for some reason, the path is not accessible
+    # to the script (e.g. permissions re-evaled after suid)
+    exit 1 # fail
 fi
 
 pushd $SCRIPT_PATH
@@ -33,12 +34,22 @@ run_script() {
     fi
 }
 
-if [[ ! -f ~/.config ]]; then
+set_default_shell() {
+    if ! grep "^$USER" /etc/passwd | grep $1 >/dev/null; then
+        echo "$1 is not the default shell"
+        shell=$(command -v $1)
+        if [[ ! -z "$shell" ]]; then
+            chsh -s $shell
+            echo "Changed default shell for the user to: $shell"
+        else
+            echo "Could not find an executable for $1, leaving the shell alone"
+        fi
+    fi
+}
+
+if [[ ! -d ~/.config ]]; then
     mkdir ~/.config
 fi
-
-sudo ln -s -f $SCRIPT_PATH/config/sudoers /etc/sudoers.d/$USER
-sudo chown root:root $SCRIPT_PATH/config/sudoers
 
 # Update apt
 sudo apt update
@@ -49,11 +60,12 @@ apt_install lastpass-cli
 apt_install zsh
 apt_install gh
 apt_install python3-pip
+apt_install git-gui
 sudo pip3 install powerline-status
 sudo pip3 install powerline-gitstatus
 
 # Install oh-my-zsh: https://ohmyz.sh
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"  "" --unattended
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
 # Install Powerlevel10k: https://github.com/romkatv/powerlevel10k
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
@@ -80,6 +92,11 @@ popd
 rm -rf $tmp_dir
 unset tmp_dir
 
+# Set the default shell to zsh if not already
+set_default_shell zsh
+
+# Run the config scripts
+run_script $SCRIPT_PATH/scripts/sudoapt.sh
 run_script $SCRIPT_PATH/../common/scripts/linkconfigs.sh
 run_script $SCRIPT_PATH/../common/scripts/setgit.sh
 
