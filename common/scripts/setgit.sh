@@ -23,5 +23,7 @@ git config --global diff.colorMoved zebra
 # Set the repo user name (which might be different than the global one eventually)
 git config user.name "Gilles Khouzam"
 git config user.email gilles@khouzam.com
+# Set the origin to be GitHub over ssh
+git remote set-url origin git@github.com:khouzam/configs
 
 popd
