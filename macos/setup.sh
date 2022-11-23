@@ -21,7 +21,7 @@ brew_install() {
 run_script() {
     if [[ -f $1 ]]; then
         echo "Running $1 script"
-        . $1
+        $1
     fi
 }
 

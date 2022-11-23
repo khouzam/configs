@@ -26,6 +26,13 @@ apt_install() {
     fi
 }
 
+run_script() {
+    if [[ -f $1 ]]; then
+        echo "Running $1 script"
+        $1
+    fi
+}
+
 if [[ ! -f ~/.config ]]; then
     mkdir ~/.config
 fi
@@ -72,12 +79,7 @@ popd
 rm -rf $tmp_dir
 unset tmp_dir
 
-if [[ -f $SCRIPT_PATH/../common/scripts/linkconfigs.sh ]]
-    . $SCRIPT_PATH/../common/scripts/linkconfigs.sh
-fi
-
-if [[ -f $SCRIPT_PATH/../common/scripts/setgit.sh ]]
-    . $SCRIPT_PATH/../common/scripts/setgit.sh
-fi
+run_script $SCRIPT_PATH/../common/scripts/linkconfigs.sh
+run_script $SCRIPT_PATH/../common/scripts/setgit.sh
 
 popd

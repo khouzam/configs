@@ -12,7 +12,9 @@ setssh() { #$1=LastpassKey, $2=OutputFile and Host, $3=User
 }
 
 SSHDIR=~/.ssh
-
+if [[ ! -d $SSHDIR ]]; then
+  mkdir $SSHDIR
+fi
 
 # Login to lastpass
 lpass login gilles@khouzam.com
