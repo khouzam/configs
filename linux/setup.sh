@@ -47,6 +47,7 @@ sudo apt upgrade -y
 apt_install coreutils
 apt_install lastpass-cli
 apt_install zsh
+apt_install gh
 apt_install python3-pip
 sudo pip3 install powerline-status
 sudo pip3 install powerline-gitstatus
