@@ -1,7 +1,9 @@
+ZSH_HIST_IGNORE_PATTERN=("vpn" "rm -rf")
+
 # Add brew to the path
 if [[ "$OSTYPE" == "darwin"* ]]; then
-        # Mac OSX
-        path=(/opt/homebrew/bin /opt/homebrew/sbin $path)
+    # Mac OSX
+    path=(/opt/homebrew/bin /opt/homebrew/sbin $path)
 fi
 
 if [[ -f ~/.zshenv_local ]]; then

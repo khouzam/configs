@@ -1,5 +1,5 @@
 if [[ -f ~/.zshrc_local ]]; then
-  . ~/.zshrc_local
+    . ~/.zshrc_local
 fi
 
 # Install Powerlevel10K prompt
@@ -13,7 +13,7 @@ fi
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 # If you come from bash you might have to change your $PATH.
@@ -123,7 +123,21 @@ source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 if [[ -f ~/.zsh_aliases ]]; then
-  . ~/.zsh_aliases
+    . ~/.zsh_aliases
 fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# Exclude values that are in $ZSH_HIST_IGNORE_PATTERN from being added to the .zsh_history
+function zshaddhistory() {
+    emulate -L zsh
+    local value
+    for value in $ZSH_HIST_IGNORE_PATTERN; do
+        if [[ "$1" = *"$value"* ]] ; then
+            return 1
+        fi
+    done
+    print -sr -- "${1%%$'\n'}"
+    fc -p
+    return 0
+}
