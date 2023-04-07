@@ -14,6 +14,10 @@
 	<false/>
 	<key>HotkeyMigratedFromSingleToMulti</key>
 	<true/>
+	<key>NeverWarnAboutShortLivedSessions_D5AB9F27-A216-4E26-BF3D-1202C7C774A1</key>
+	<true/>
+	<key>NeverWarnAboutShortLivedSessions_D5AB9F27-A216-4E26-BF3D-1202C7C774A1_selection</key>
+	<integer>0</integer>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
