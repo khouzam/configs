@@ -1,5 +1,4 @@
 #! /bin/bash
-
 SCRIPT_PATH=$(dirname "$0") # relative
 SCRIPT_PATH=$(cd "$SCRIPT_PATH" && pwd)
 if [[ -z "$SCRIPT_PATH" ]]; then
@@ -59,10 +58,7 @@ apt_install coreutils
 apt_install lastpass-cli
 apt_install zsh
 apt_install gh
-apt_install python3-pip
 apt_install git-gui
-sudo pip3 install powerline-status
-sudo pip3 install powerline-gitstatus
 
 # Install oh-my-zsh: https://ohmyz.sh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
@@ -80,17 +76,6 @@ if ! is_installed speedtest; then
 else
     echo Speedtest is installed
 fi
-
-# Powerline fonts installation
-echo Installing Powerline Fonts
-tmp_dir=$(mktemp -d -t powerlinefonts.XXXXX)
-pushd $tmp_dir
-git clone https://github.com/powerline/fonts.git --depth=1 fonts
-cd fonts
-./install.sh
-popd
-rm -rf $tmp_dir
-unset tmp_dir
 
 # Set the default shell to zsh if not already
 set_default_shell zsh

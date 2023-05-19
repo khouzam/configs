@@ -68,21 +68,6 @@ else
     echo Speedtest is installed
 fi
 
-# Powerline fonts installation
-echo Installing Powerline Fonts
-tmp_dir=$(mktemp -d -t powerlinefonts)
-pushd $tmp_dir
-git clone https://github.com/powerline/fonts.git --depth=1 fonts
-cd fonts
-./install.sh
-popd
-rm -rf $tmp_dir
-unset tmp_dir
-
-echo Installing Powerline-Status
-pip3 install powerline-status
-pip3 install powerline-gitstatus
-
 # Run the config scripts
 run_script $SCRIPT_PATH/../common/scripts/linkconfigs.sh
 run_script $SCRIPT_PATH/../common/scripts/setgit.sh
