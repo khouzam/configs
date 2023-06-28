@@ -12,6 +12,7 @@ pushd $SCRIPT_PATH
 
 # Configure Git
 git config --global alias.root 'rev-parse --show-toplevel'
+git config --global core.pager "less -FX"
 
 # Set the global user name (which might be changed)
 git config --global user.name "Gilles Khouzam"
