@@ -14,6 +14,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     }
 fi
 
+alias rehash="hash -rf"
+
 if [[ -f ~/.zsh_aliases_local ]]; then
     . ~/.zsh_aliases_local
 fi
