@@ -7,14 +7,19 @@ dumpcolors() {
 # Add brew to the path
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # Mac OSX
-    purgespace() {   
+    purgespace() {
         pushd ~
         sudo /System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -P *
         popd
     }
 fi
 
-alias rehash="hash -rf"
+alias rehash='hash -rf'
+alias ff='find . -type f -name'
+alias fd='find . -type d -name'
+
+# Global Aliases
+alias -g @noerr='2> /dev/null'
 
 if [[ -f ~/.zsh_aliases_local ]]; then
     . ~/.zsh_aliases_local
