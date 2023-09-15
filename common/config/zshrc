@@ -3,8 +3,8 @@ if [[ -f ~/.zshrc_local ]]; then
 fi
 
 # Install Powerlevel10K prompt
-if [[ -x $(command -v brew) ]] && [[ -f $(brew --prefix)/opt/powerlevel10k/powerlevel10k.zsh-theme ]]; then
-    source $(brew --prefix)/opt/powerlevel10k/powerlevel10k.zsh-theme
+if [[ -x $(command -v brew) ]] && [[ -f $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme ]]; then
+    source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
 else
     ZSH_THEME="powerlevel10k/powerlevel10k"
 fi

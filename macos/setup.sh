@@ -53,7 +53,7 @@ echo Installing ohMyZsh
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
 # echo Installing powerlime2k
-brew_install romkatv/powerlevel10k/powerlevel10k
+brew_install powerlevel10k
 brew_install zsh-autosuggestions
 
 echo Checking and Installing Speedtest
