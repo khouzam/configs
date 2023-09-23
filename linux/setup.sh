@@ -54,6 +54,7 @@ fi
 sudo apt update
 sudo apt upgrade -y
 
+apt_install curl
 apt_install coreutils
 apt_install lastpass-cli
 apt_install zsh
