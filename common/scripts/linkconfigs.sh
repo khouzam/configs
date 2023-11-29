@@ -1,10 +1,10 @@
 #! /bin/bash
-COMMON_PATH=$(dirname "$0")/..                 # relative
+COMMON_PATH=$(dirname "$0")/.. # relative
 COMMON_PATH=$(cd "$COMMON_PATH" && pwd)
-if [[ -z "$COMMON_PATH" ]] ; then
-  # error; for some reason, the path is not accessible
-  # to the script (e.g. permissions re-evaled after suid)
-  exit 1  # fail
+if [[ -z "$COMMON_PATH" ]]; then
+    # error; for some reason, the path is not accessible
+    # to the script (e.g. permissions re-evaled after suid)
+    exit 1 # fail
 fi
 
 pushd $COMMON_PATH

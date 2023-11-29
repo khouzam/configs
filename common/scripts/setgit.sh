@@ -1,10 +1,10 @@
 #! /bin/bash
-SCRIPT_PATH=$(dirname "$0")            # relative
+SCRIPT_PATH=$(dirname "$0") # relative
 SCRIPT_PATH=$(cd "$SCRIPT_PATH" && pwd)
-if [[ -z "$SCRIPT_PATH" ]] ; then
-  # error; for some reason, the path is not accessible
-  # to the script (e.g. permissions re-evaled after suid)
-  exit 1  # fail
+if [[ -z "$SCRIPT_PATH" ]]; then
+    # error; for some reason, the path is not accessible
+    # to the script (e.g. permissions re-evaled after suid)
+    exit 1 # fail
 fi
 
 # Make sure we are in the git repo
