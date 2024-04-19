@@ -1,19 +1,28 @@
 if [[ -f ~/.zshrc_local ]]; then
-    . ~/.zshrc_local
+  . ~/.zshrc_local
+fi
+
+if [[ ! ${TMUX} && -t 0 && "${TERM_PROGRAM}" != "vscode" && "${SSH_CLIENT}" != "" ]]; then
+  first_unattached=$(tmux list-sessions -F '#{?session_attached,,#{session_name}}' 2>/dev/null | grep -v '^$' | head -1)
+  if [[ "${first_unattached}" != "" ]]; then
+    tmux ${TMUX_OPTIONS} attach-session -t ${first_unattached}
+  else
+    tmux ${TMUX_OPTIONS} new-session
+  fi
 fi
 
 # Install Powerlevel10K prompt
 if [[ -x $(command -v brew) ]] && [[ -f $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme ]]; then
-    source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
+  source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
 else
-    ZSH_THEME="powerlevel10k/powerlevel10k"
+  ZSH_THEME="powerlevel10k/powerlevel10k"
 fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${USER}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${USER}.zsh"
 fi
 
 # If you come from bash you might have to change your $PATH.
@@ -126,21 +135,21 @@ setopt incappendhistory
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 if [[ -f ~/.zsh_aliases ]]; then
-    . ~/.zsh_aliases
+  . ~/.zsh_aliases
 fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # Exclude values that are in $ZSH_HIST_IGNORE_PATTERN from being added to the .zsh_history
 function zshaddhistory() {
-    emulate -L zsh
-    local value
-    for value in $ZSH_HIST_IGNORE_PATTERN; do
-        if [[ "$1" = *"$value"* ]] ; then
-            return 1
-        fi
-    done
-    print -sr -- "${1%%$'\n'}"
-    fc -p
-    return 0
+  emulate -L zsh
+  local value
+  for value in $ZSH_HIST_IGNORE_PATTERN; do
+    if [[ "$1" = *"$value"* ]]; then
+      return 1
+    fi
+  done
+  print -sr -- "${1%%$'\n'}"
+  fc -p
+  return 0
 }

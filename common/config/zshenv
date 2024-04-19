@@ -1,10 +1,13 @@
 ZSH_HIST_IGNORE_PATTERN=("vpn state" "rm -rf")
 
-# Add brew to the path
+# Mac OSX
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    # Mac OSX
+    # Add brew to the path
     path=(/opt/homebrew/bin /opt/homebrew/sbin $path)
 fi
+
+# Set the iTerm tmux options
+TMUX_OPTIONS="-CC"
 
 if [[ -f ~/.zshenv_local ]]; then
     source ~/.zshenv_local

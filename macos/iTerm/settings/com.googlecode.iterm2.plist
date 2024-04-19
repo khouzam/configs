@@ -8,6 +8,10 @@
 	<true/>
 	<key>BootstrapDaemon</key>
 	<false/>
+	<key>ClosingTmuxWindowKillsTmuxWindows</key>
+	<true/>
+	<key>ClosingTmuxWindowKillsTmuxWindows_selection</key>
+	<integer>1</integer>
 	<key>Command</key>
 	<string>/bin/zsh</string>
 	<key>Default Bookmark Guid</key>

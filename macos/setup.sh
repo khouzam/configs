@@ -51,6 +51,7 @@ brew_install flycut --cask
 brew_install iproute2mac
 brew_install klogg
 brew_install gh
+brew_install tmux
 
 echo Installing ohMyZsh
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
