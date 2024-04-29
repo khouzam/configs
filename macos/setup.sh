@@ -48,6 +48,8 @@ brew_install monitorcontrol --cask
 brew_install rectangle
 brew_install android-platform-tools --cask
 brew_install flycut --cask
+brew_install iproute2mac
+brew_install klogg
 brew_install gh
 
 echo Installing ohMyZsh
