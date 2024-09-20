@@ -45,7 +45,6 @@ brew_install lastpass --cask
 brew_install lastpass-cli
 brew_install iproute2mac
 brew_install monitorcontrol --cask
-brew_install rectangle
 brew_install android-platform-tools --cask
 brew_install flycut --cask
 brew_install iproute2mac
@@ -55,10 +54,17 @@ brew_install tmux
 brew_install htop
 
 
+# Install Rectangle on devices before Sequoia MacOS 15
+VERSION_NUMBER=$(sw_vers --productVersion | cut -f1 -d'.')
+if [[ $VERSION_NUMBER -lt 15 ]]; then
+    brew_install rectangle
+fi
+
+
 echo Installing ohMyZsh
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
-# echo Installing powerlime2k
+# echo Installing powerlevel10k
 brew_install powerlevel10k
 brew_install zsh-autosuggestions
 
