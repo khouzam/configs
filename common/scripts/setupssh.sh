@@ -33,9 +33,9 @@ lpass login gilles@khouzam.com
 lpass sync
 
 setssh "Home SSH" mudflaps gilles
-setssh "Home SSH" kraken gilles 23
-setssh "Home SSH" gilles-air gilles 24
-setssh "Home SSH" gilles-air-wifi gilles 25
+setssh "Home SSH" kraken gilles
+setssh "Home SSH" gilles-air gilles
+setssh "Home SSH" gilles-air-wifi gilles
 setssh "PiHole SSH" pihole pi
 setssh "Github SSH" github git
 setssh "Kitware Gitlab SSH" kitware git

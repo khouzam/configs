@@ -53,13 +53,11 @@ brew_install gh
 brew_install tmux
 brew_install htop
 
-
 # Install Rectangle on devices before Sequoia MacOS 15
 VERSION_NUMBER=$(sw_vers --productVersion | cut -f1 -d'.')
 if [[ $VERSION_NUMBER -lt 15 ]]; then
     brew_install rectangle
 fi
-
 
 echo Installing ohMyZsh
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
