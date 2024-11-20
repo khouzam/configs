@@ -140,6 +140,10 @@ fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  test -e $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh && source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
 # Exclude values that are in $ZSH_HIST_IGNORE_PATTERN from being added to the .zsh_history
 function zshaddhistory() {
   emulate -L zsh
