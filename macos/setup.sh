@@ -59,12 +59,7 @@ if [[ $VERSION_NUMBER -lt 15 ]]; then
     brew_install rectangle
 fi
 
-echo Installing ohMyZsh
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-
-# echo Installing powerlevel10k
-brew_install powerlevel10k
-brew_install zsh-autosuggestions
+run_script $SCRIPT_PATH/../common/scripts/installzsh.sh
 
 echo Checking and Installing Speedtest
 if [[ ! -x $(command -v speedtest) ]]; then

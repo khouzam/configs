@@ -61,11 +61,7 @@ apt_install zsh
 apt_install gh
 apt_install git-gui
 
-# Install oh-my-zsh: https://ohmyz.sh
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-
-# Install Powerlevel10k: https://github.com/romkatv/powerlevel10k
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+run_script $SCRIPT_PATH/../common/scripts/installzsh.sh
 
 echo Checking and Installing Speedtest
 if ! is_installed speedtest; then
