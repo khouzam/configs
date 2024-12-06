@@ -41,14 +41,12 @@ brew_install git-gui
 brew_install sourcetree --cask
 brew_install iterm2 --cask
 brew_install visual-studio-code --cask
-brew_install lastpass --cask
 brew_install lastpass-cli
 brew_install iproute2mac
 brew_install monitorcontrol --cask
 brew_install android-platform-tools --cask
 brew_install flycut --cask
 brew_install iproute2mac
-brew_install klogg
 brew_install gh
 brew_install tmux
 brew_install htop
