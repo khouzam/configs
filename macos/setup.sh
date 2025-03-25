@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/zsh
 SCRIPT_PATH=$(dirname "$0") # relative
 SCRIPT_PATH=$(cd "$SCRIPT_PATH" && pwd)
 if [[ -z "$SCRIPT_PATH" ]]; then
@@ -33,10 +33,13 @@ echo Checking and Installing Homebrew
 if [[ ! -x $(command -v brew) ]]; then
     # Install Homebrew
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    # Add brew to the path
+    path=(/opt/homebrew/bin /opt/homebrew/sbin $path)
 else
     brew update
 fi
 
+brew_install google-chrome --cask
 brew_install git-gui
 brew_install sourcetree --cask
 brew_install iterm2 --cask
