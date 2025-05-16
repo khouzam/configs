@@ -53,6 +53,7 @@ brew_install iproute2mac
 brew_install gh
 brew_install tmux
 brew_install htop
+brew_install displaylink
 
 # Install Rectangle on devices before Sequoia MacOS 15
 VERSION_NUMBER=$(sw_vers --productVersion | cut -f1 -d'.')
