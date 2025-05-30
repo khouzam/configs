@@ -40,20 +40,20 @@ else
 fi
 
 brew_install google-chrome --cask
+brew_install iterm2 --cask
 brew_install git-gui
 brew_install sourcetree --cask
-brew_install iterm2 --cask
 brew_install visual-studio-code --cask
 brew_install lastpass-cli
 brew_install iproute2mac
+brew_install displaylink
 brew_install monitorcontrol --cask
 brew_install android-platform-tools --cask
 brew_install flycut --cask
-brew_install iproute2mac
 brew_install gh
 brew_install tmux
 brew_install htop
-brew_install displaylink
+brew_install neofetch
 
 # Install Rectangle on devices before Sequoia MacOS 15
 VERSION_NUMBER=$(sw_vers --productVersion | cut -f1 -d'.')

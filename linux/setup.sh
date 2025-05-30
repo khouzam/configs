@@ -60,6 +60,7 @@ apt_install lastpass-cli
 apt_install zsh
 apt_install gh
 apt_install git-gui
+apt_install neofetch
 
 run_script $SCRIPT_PATH/../common/scripts/installzsh.sh
 
