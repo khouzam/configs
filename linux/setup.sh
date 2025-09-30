@@ -10,19 +10,27 @@ fi
 pushd $SCRIPT_PATH
 
 is_installed() {
-    if [[ $(dpkg-query -W -f='${Status}' $1 2>/dev/null | grep -c "ok installed") -eq 0 ]]; then
-        return 1
-    else
-        return 0
+    if [[ "${installer}" == "dnf" ]]; then
+        if dnf list installed "$1" >/dev/null 2>&1; then
+            return 0
+        else
+            return 1
+        fi
+    elif [[ "${installer}" == "dnf" ]]; then
+        if [[ $(dpkg-query -W -f='${Status}' $1 2>/dev/null | grep -c "ok installed") -eq 0 ]]; then
+            return 1
+        else
+            return 0
+        fi
     fi
 }
 
-apt_install() {
-    echo "Installing $1 using apt"
+pkg_install() {
+    echo "Installing $1 using ${installer}"
     if is_installed $1; then
         echo "$1 is already installed"
     else
-        sudo apt install -y $* && echo "$1 is installed"
+        sudo ${installer} install -y $* && echo "$1 is installed"
     fi
 }
 
@@ -50,27 +58,43 @@ if [[ ! -d ~/.config ]]; then
     mkdir ~/.config
 fi
 
-# Update apt
-sudo apt update
-sudo apt upgrade -y
+if command -v apt >/dev/null; then
+    echo "Using apt based install"
+    installer="apt"
+    # Update apt
+    sudo apt update
+    sudo apt upgrade -y
 
-apt_install curl
-apt_install coreutils
-apt_install lastpass-cli
-apt_install zsh
-apt_install gh
-apt_install git-gui
-apt_install neofetch
+elif command -v dnf >/dev/null; then
+    echo "Using dnf based install"
+    installer="dnf"
+else
+    echo "I have no Idea what im doing here"
+    exit 1
+fi
+
+pkg_install curl
+pkg_install coreutils
+pkg_install lastpass-cli
+pkg_install zsh
+pkg_install gh
+pkg_install git-gui
+pkg_install neofetch
 
 run_script $SCRIPT_PATH/../common/scripts/installzsh.sh
 
 echo Checking and Installing Speedtest
 if ! is_installed speedtest; then
     echo Installing speedtest
-    apt_install curl
+    pkg_install curl
 
-    curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | sudo bash
-    apt_install speedtest
+    if [[ "${installer}" == "dnf" ]]; then
+        curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.rpm.sh | sudo bash
+    elif [[ "${installer}" == "apt" ]]; then
+        curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | sudo bash
+    fi
+
+    pkg_install speedtest
 else
     echo Speedtest is installed
 fi
