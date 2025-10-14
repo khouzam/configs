@@ -8,5 +8,9 @@ if [[ -z "$SCRIPT_PATH" ]]; then
     exit 1 # fail
 fi
 
-sudo ln -s -f $SCRIPT_PATH/../config/sudoers /etc/sudoers.d/$USER
-sudo chown root:root $SCRIPT_PATH/../config/sudoers
+SUDOFILE=/etc/sudoers.d/$USER
+
+sudo cp -s -f $SCRIPT_PATH/../config/sudoers $SUDOFILE
+sudo sed -i "s/__USER__/$USER/g" $SUDOFILE
+sudo chown root:root $SUDOFILE
+sudo chmod 440 $SUDOFILE
