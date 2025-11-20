@@ -82,4 +82,11 @@ run_script $SCRIPT_PATH/scripts/setgitdiff.sh
 run_script $SCRIPT_PATH/scripts/sudotouchid.sh
 run_script $SCRIPT_PATH/scripts/setupiTerm.sh
 
+# Create a docker group and add the user to it
+if [ ! $(getent group docker) ]; then
+    echo "Creating docker group"
+    sudo dscl . create /Groups/docker
+fi
+sudo dseditgroup -o edit -a $USER -t user docker
+
 popd
