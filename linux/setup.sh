@@ -107,4 +107,11 @@ run_script $SCRIPT_PATH/scripts/sudoapt.sh
 run_script $SCRIPT_PATH/../common/scripts/linkconfigs.sh
 run_script $SCRIPT_PATH/../common/scripts/setgit.sh
 
+# Create a docker group and add the user to it
+if [ ! $(getent group docker) ]; then
+    echo "Creating docker group"
+    sudo groupadd docker
+fi
+sudo usermod -aG docker $USER
+
 popd
