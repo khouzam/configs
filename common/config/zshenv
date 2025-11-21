@@ -1,4 +1,4 @@
-ZSH_HIST_IGNORE_PATTERN=("vpn state" "rm -rf")
+ZSH_HIST_IGNORE_PATTERN=("rm -rf")
 
 # Mac OSX
 if [[ "$OSTYPE" == "darwin"* ]]; then

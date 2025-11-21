@@ -129,13 +129,15 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Enable writing history right away to have multiple prompts be combined
-setopt incappendhistory
+setopt INC_APPEND_HISTORY
+setopt INC_APPEND_HISTORY_TIME
+setopt SHARE_HISTORY
 
 # Make ls operations case insensitive
 unsetopt CASE_GLOB
 
 # Enable expansion of environment variables for cd
-setopt cdable_vars
+setopt CDABLE_VARS
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
