@@ -15,4 +15,7 @@ ln -s -f $COMMON_PATH/config/zshrc ~/.zshrc
 ln -s -f $COMMON_PATH/config/zsh_aliases ~/.zsh_aliases
 ln -s -f $COMMON_PATH/config/p10k.zsh ~/.p10k.zsh
 
+mkdir -p ~/.oh-my-zsh/custom/plugins/sapling
+ln -s -f $COMMON_PATH/plugins/sapling/sapling.plugin.zsh ~/.oh-my-zsh/custom/plugins/sapling/sapling.plugin.zsh
+
 popd
