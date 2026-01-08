@@ -11,17 +11,9 @@ pushd $SCRIPT_PATH
 
 is_installed() {
     if [[ "${installer}" == "dnf" ]]; then
-        if dnf list installed "$1" >/dev/null 2>&1; then
-            return 1
-        else
-            return 0
-        fi
+        dnf list installed "$1" >/dev/null 2>&1
     elif [[ "${installer}" == "apt" ]]; then
-        if $(dpkg-query -W -f='${Status}' $1 2>/dev/null | grep -q "ok installed"); then
-            return 1
-        else
-            return 0
-        fi
+        $(dpkg-query -W -f='${Status}' $1 2>/dev/null | grep -q "ok installed")
     fi
 }
 
