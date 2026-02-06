@@ -7,6 +7,14 @@ if [[ -z "$SCRIPT_PATH" ]]; then
     exit 1 # fail
 fi
 
+# Parse arguments
+INSTALL_GUI=true
+for arg in "$@"; do
+    if [[ "$arg" == "--no-gui" ]]; then
+        INSTALL_GUI=false
+    fi
+done
+
 pushd $SCRIPT_PATH
 
 brew_install() {
@@ -39,26 +47,30 @@ else
     brew update
 fi
 
-brew_install google-chrome --cask
-brew_install iterm2 --cask
-brew_install git-gui
-brew_install sourcetree --cask
-brew_install visual-studio-code --cask
 brew_install lastpass-cli
 brew_install iproute2mac
-brew_install displaylink
-brew_install monitorcontrol --cask
 brew_install android-platform-tools --cask
-brew_install flycut --cask
 brew_install gh
 brew_install tmux
 brew_install htop
 brew_install neofetch
 
-# Install Rectangle on devices before Sequoia MacOS 15
-VERSION_NUMBER=$(sw_vers --productVersion | cut -f1 -d'.')
-if [[ $VERSION_NUMBER -lt 15 ]]; then
-    brew_install rectangle
+## Install packages that have a gui optionally
+if [[ "$INSTALL_GUI" == "true" ]]; then
+    brew_install google-chrome --cask
+    brew_install iterm2 --cask
+    brew_install git-gui
+    brew_install sourcetree --cask
+    brew_install visual-studio-code --cask
+    brew_install displaylink
+    brew_install monitorcontrol --cask
+    brew_install flycut --cask
+
+    # Install Rectangle on devices before Sequoia MacOS 15
+    VERSION_NUMBER=$(sw_vers --productVersion | cut -f1 -d'.')
+    if [[ $VERSION_NUMBER -lt 15 ]]; then
+        brew_install rectangle
+    fi
 fi
 
 run_script $SCRIPT_PATH/../common/scripts/installzsh.sh
