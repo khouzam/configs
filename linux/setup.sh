@@ -7,6 +7,14 @@ if [[ -z "$SCRIPT_PATH" ]]; then
     exit 1 # fail
 fi
 
+# Parse arguments
+INSTALL_GUI=true
+for arg in "$@"; do
+    if [[ "$arg" == "--no-gui" ]]; then
+        INSTALL_GUI=false
+    fi
+done
+
 pushd $SCRIPT_PATH
 
 is_installed() {
@@ -70,8 +78,14 @@ pkg_install coreutils
 pkg_install lastpass-cli
 pkg_install zsh
 pkg_install gh
-pkg_install git-gui
-pkg_install neofetch
+
+## Install packages that have a gui optionally
+if [[ "$INSTALL_GUI" == "true" ]]; then
+    pkg_install git-gui
+    pkg_install neofetch
+else
+    pkg_install neofetch --no-install-recommends
+fi
 
 run_script $SCRIPT_PATH/../common/scripts/installzsh.sh
 
