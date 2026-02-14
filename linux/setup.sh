@@ -75,6 +75,7 @@ fi
 
 pkg_install curl
 pkg_install coreutils
+pkg_install tmux
 pkg_install lastpass-cli
 pkg_install zsh
 pkg_install gh
@@ -104,6 +105,25 @@ if ! is_installed speedtest; then
 else
     echo Speedtest is installed
 fi
+
+# echo Checking and installing Cloudflared
+# if ! is_installed cloudflared; then
+#     echo Installing cloudflared
+#     if [[ "${installer}" == "yum" ]]; then
+#         sudo yum install -y yum-utils
+#         sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+#         sudo yum -y install cloudflared
+#     elif [[ "${installer}" == "apt" ]]; then
+# Add cloudflare gpg key
+sudo mkdir -p --mode=0755 /usr/share/keyrings
+curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | sudo tee /usr/share/keyrings/cloudflare-main.gpg >/dev/null
+
+# Add this repo to your apt repositories
+echo 'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared any main' | sudo tee /etc/apt/sources.list.d/cloudflared.list
+
+# install cloudflared
+sudo apt-get update && sudo apt-get install cloudflared# fi
+# fi
 
 # Set the default shell to zsh if not already
 set_default_shell zsh
