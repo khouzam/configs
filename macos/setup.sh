@@ -59,6 +59,7 @@ brew_install neofetch
 if [[ "$INSTALL_GUI" == "true" ]]; then
     brew_install google-chrome --cask
     brew_install iterm2 --cask
+    brew_install sapling
     brew_install git-gui
     brew_install sourcetree --cask
     brew_install visual-studio-code --cask
