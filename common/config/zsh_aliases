@@ -18,6 +18,18 @@ alias rehash='hash -rf'
 alias ff='find . -type f -name'
 alias fd='find . -type d -name'
 
+# Remove history duplicates
+history-dedup() {
+  local rev
+  command -v tac &>/dev/null && rev="tac" || rev="tail -r"
+  eval "$rev ~/.zsh_history" \
+    | awk -F';' '{ cmd=substr($0, index($0,";")+1); if (!seen[cmd]++) print }' \
+    | eval "$rev" \
+    > /tmp/zsh_deduped \
+    && mv /tmp/zsh_deduped ~/.zsh_history \
+    && fc -R ~/.zsh_history
+}
+
 # Global Aliases
 alias -g @noerr='2> /dev/null'
 

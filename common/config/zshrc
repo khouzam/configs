@@ -129,8 +129,6 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Enable writing history right away to have multiple prompts be combined
-setopt INC_APPEND_HISTORY
-setopt INC_APPEND_HISTORY_TIME
 setopt SHARE_HISTORY
 setopt HIST_IGNORE_SPACE
 setopt HIST_IGNORE_DUPS
