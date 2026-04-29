@@ -66,6 +66,7 @@ if [[ "$INSTALL_GUI" == "true" ]]; then
     brew_install displaylink
     brew_install monitorcontrol --cask
     brew_install flycut --cask
+    brew_install alt-tab --cask
 
     # Install Rectangle on devices before Sequoia MacOS 15
     VERSION_NUMBER=$(sw_vers --productVersion | cut -f1 -d'.')
