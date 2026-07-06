@@ -23,8 +23,7 @@ if [[ ! -e '/usr/local/lib/pam/pam_watchid.so.2' ]]; then
         sudo mkdir -p '/usr/local/lib/pam'
     fi
 
-    pushd $SCRIPT_PATH
-    sudo cp ../bins/pam_watchid.so.2 /usr/local/lib/pam/
+    sudo cp ${SCRIPT_PATH}../bins/pam_watchid.so.2 /usr/local/lib/pam/
 fi
 
 if ! grep -q pam_watchid.so $OUTPUT_FILE; then
