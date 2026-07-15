@@ -21,7 +21,7 @@ is_installed() {
     if [[ "${installer}" == "dnf" ]]; then
         dnf list installed "$1" >/dev/null 2>&1
     elif [[ "${installer}" == "apt" ]]; then
-        $(dpkg-query -W -f='${Status}' $1 2>/dev/null | grep -q "ok installed")
+        dpkg-query -W -f='${Status}' "$1" 2>/dev/null | grep -q "ok installed"
     fi
 }
 

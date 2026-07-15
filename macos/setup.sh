@@ -97,7 +97,7 @@ run_script $SCRIPT_PATH/scripts/sudotouchid.sh
 run_script $SCRIPT_PATH/scripts/setupiTerm.sh
 
 # Create a docker group and add the user to it
-if [ ! $(getent group docker) ]; then
+if ! dscl . -read /Groups/docker &>/dev/null; then
     echo "Creating docker group"
     sudo dscl . create /Groups/docker
 fi
