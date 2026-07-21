@@ -6,8 +6,13 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     path=(/opt/homebrew/bin /opt/homebrew/sbin $path)
 fi
 
-# Set the iTerm tmux options
-TMUX_OPTIONS="-CC"
+# iTerm2 control mode (-CC) only; other clients (Termius, etc.) can't decode it.
+# iTerm2 sets TERM_PROGRAM locally and forwards LC_TERMINAL over SSH.
+if [[ "${TERM_PROGRAM}" == "iTerm.app" || "${LC_TERMINAL}" == "iTerm2" ]]; then
+    TMUX_OPTIONS="-CC"
+else
+    TMUX_OPTIONS=""
+fi
 
 if [[ -f ~/.zshenv_local ]]; then
     source ~/.zshenv_local

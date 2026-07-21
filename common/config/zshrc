@@ -2,10 +2,15 @@ if [[ -f ~/.zshrc_local ]]; then
   . ~/.zshrc_local
 fi
 
-if [[ ! ${TMUX} && -t 0 && "${TERM_PROGRAM}" != "vscode" && "${SSH_CLIENT}" != "" ]]; then
-  first_unattached=$(tmux list-sessions -F '#{?session_attached,,#{session_name}}' 2>/dev/null | grep -v '^$' | head -1)
-  if [[ "${first_unattached}" != "" ]]; then
-    tmux ${TMUX_OPTIONS} attach-session -t ${first_unattached}
+# Auto-attach tmux on interactive SSH logins. Skip inside VSCode, non-ttys, or when NO_TMUX is set.
+if [[ ! ${TMUX} && -z ${NO_TMUX} && -z ${LC_NO_TMUX} && -t 0 && "${TERM_PROGRAM}" != "vscode" && "${SSH_CLIENT}" != "" ]]; then
+  # Prefer an unattached session; otherwise reuse the most recent one, kicking off any stale/dead client.
+  target=$(tmux list-sessions -F '#{?session_attached,,#{session_name}}' 2>/dev/null | grep -v '^$' | head -1)
+  if [[ -z "${target}" ]]; then
+    target=$(tmux list-sessions -F '#{session_name}' 2>/dev/null | head -1)
+  fi
+  if [[ -n "${target}" ]]; then
+    tmux ${TMUX_OPTIONS} attach-session -d -t "${target}"
   else
     tmux ${TMUX_OPTIONS} new-session
   fi
