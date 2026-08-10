@@ -16,3 +16,11 @@ fi
 if [[ ! -d $ZSH_CUSTOM_DIR/plugins/zsh-autosuggestions ]]; then
     git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM_DIR/plugins/zsh-autosuggestions
 fi
+
+# Install iTerm2 shell integration: https://iterm2.com/documentation-shell-integration.html
+# Sourced by zshrc via `test -e ~/.iterm2_shell_integration.zsh`. Only activates for
+# interactive iTerm2 sessions, so this is safe (a no-op) on any host, including ones
+# only ever reached over SSH from iTerm2 rather than used directly.
+if [[ ! -f $HOME/.iterm2_shell_integration.zsh ]]; then
+    curl -fsSL https://iterm2.com/shell_integration/zsh -o $HOME/.iterm2_shell_integration.zsh
+fi
