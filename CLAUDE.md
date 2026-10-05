@@ -42,7 +42,7 @@ Each config sources an optional local counterpart at the end: `~/.zshenv_local`,
 ## Shell config architecture
 
 - `zshenv` runs first: sets Homebrew on PATH for macOS and decides `TMUX_OPTIONS`. `-CC` (iTerm2 control mode) is only used when the client is iTerm2 (`TERM_PROGRAM=iTerm.app` locally, or `LC_TERMINAL=iTerm2` forwarded over SSH) — other clients can't decode control mode.
-- `zshrc` auto-attaches tmux on interactive SSH logins (skipped inside tmux, inside VSCode, on non-ttys, or when `NO_TMUX`/`LC_NO_TMUX` is set). It prefers an unattached session, else reattaches the newest with `-d`.
+- `zshrc` auto-attaches tmux on interactive SSH logins (skipped inside tmux, inside VSCode, inside Orca (`ORCA_PANE_KEY`/`ORCA_TERMINAL_HANDLE` — its relay inherits `SSH_CLIENT`), on non-ttys, or when `NO_TMUX`/`LC_NO_TMUX` is set). It prefers an unattached session, else reattaches the newest with `-d`.
 - The `sshnt` alias in `zsh_aliases` forwards `LC_NO_TMUX=1` via `ssh -o SendEnv` to skip the remote auto-attach. `LC_*` is used deliberately because most `sshd` configs already `AcceptEnv LC_*`; RHEL/Fedora/vanilla OpenSSH need `AcceptEnv LC_NO_TMUX LC_TERMINAL` added. See README.md.
 - `zshaddhistory` in `zshrc` filters history: honors `HIST_IGNORE_SPACE` explicitly (the hook overrides zsh's built-in handling) and drops anything matching a pattern in `$ZSH_HIST_IGNORE_PATTERN` (set in `zshenv`).
 

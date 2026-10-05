@@ -2,8 +2,9 @@ if [[ -f ~/.zshrc_local ]]; then
   . ~/.zshrc_local
 fi
 
-# Auto-attach tmux on interactive SSH logins. Skip inside VSCode, non-ttys, or when NO_TMUX is set.
-if [[ ! ${TMUX} && -z ${NO_TMUX} && -z ${LC_NO_TMUX} && -t 0 && "${TERM_PROGRAM}" != "vscode" && "${SSH_CLIENT}" != "" ]]; then
+# Auto-attach tmux on interactive SSH logins. Skip inside VSCode, Orca, non-ttys, or when NO_TMUX is set.
+# Orca's relay inherits SSH_CLIENT and keeps its own PTYs alive; attaching would also detach (-d) the real tmux client.
+if [[ ! ${TMUX} && -z ${NO_TMUX} && -z ${LC_NO_TMUX} && -t 0 && "${TERM_PROGRAM}" != "vscode" && -z ${ORCA_PANE_KEY} && -z ${ORCA_TERMINAL_HANDLE} && "${SSH_CLIENT}" != "" ]]; then
   # Prefer an unattached session; otherwise reuse the most recent one, kicking off any stale/dead client.
   target=$(tmux list-sessions -F '#{?session_attached,,#{session_name}}' 2>/dev/null | grep -v '^$' | head -1)
   if [[ -z "${target}" ]]; then
