@@ -1,10 +1,28 @@
 ZSH_HIST_IGNORE_PATTERN=("rm -rf")
 
+# This file runs in every zsh, including one started from another shell, so the PATH edits here and
+# in ~/.zshenv_local run again over a PATH the parent already extended. Keep only the first copy of
+# each entry. Both names are needed: the flag on `path` does not cover assignments to `PATH`.
+typeset -U path PATH
+
+# Where brew goes depends on whether the OS or brew has the better tools. macOS ships old or stub
+# ones (python3, bash, git, curl), so brew goes first, as `brew shellenv` and the repo's .bazelrc do.
+# A Linux distro's are current and tied to the system (curl and openssl use its trust store), so
+# brew goes last and only supplies what the distro lacks (e.g. bazel). Putting it first there would
+# swap about 130 commands, among them python3, curl, openssl and node, for brew's versions.
+
 # Mac OSX
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    # Add brew to the path
+if [[ "$OSTYPE" == "darwin"* && -d /opt/homebrew ]]; then
     path=(/opt/homebrew/bin /opt/homebrew/sbin $path)
 fi
+
+# Linux
+if [[ "$OSTYPE" == linux* && -d /home/linuxbrew/.linuxbrew ]]; then
+    path+=(/home/linuxbrew/.linuxbrew/bin /home/linuxbrew/.linuxbrew/sbin)
+fi
+
+# Add user-local binaries (e.g. claude) to the path
+path=(~/.local/bin $path)
 
 # iTerm2 control mode (-CC) only; other clients (Termius, etc.) can't decode it.
 # iTerm2 sets TERM_PROGRAM locally and forwards LC_TERMINAL over SSH.
